@@ -1,0 +1,22 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="CommitTemplateExtension.038c6979-26f0-4d19-ba07-6c2e95bfea8f" Version="1.0" Language="en-US" Publisher="simulan88@yahoo.com" />
+    <DisplayName>CommitTemplateExtension</DisplayName>
+    <Description xml:space="preserve">Adds a menu to visual studio where the user can commit in a way that's dictated by a template. (e.g. Conventional Commits Template)</Description>
+    <Icon>CommitTemplate.png</Icon>
+    <PreviewImage>CommitTemplate.png</PreviewImage>
+    <Tags>ConventionalCommits Git Commit</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
+  </Dependencies>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" Path="CommitTemplateExtension.pkgdef" />
+  </Assets>
+</PackageManifest>
