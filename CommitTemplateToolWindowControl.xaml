@@ -24,8 +24,15 @@
     </UserControl.Resources>
 
     <StackPanel>
+        
         <StackPanel Orientation="Vertical" >
-            <TextBlock Margin="10" HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Conventional Commit Template"/></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="10" HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Conventional Commit Template"/></TextBlock>
+                <Button>
+                    <Image Name="imgIcon" Width="30"></Image>
+                </Button>
+            </StackPanel>   
+                
             
             <!--Show errors-->
             <Border x:Name="brdError" BorderBrush="#999" Background="white" BorderThickness="1" Visibility="Collapsed">
@@ -107,14 +114,13 @@
         </Expander>
             <Expander IsExpanded="True">
             <Expander.Header>
-                <DockPanel Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type HeaderedContentControl}}}">
+                <DockPanel>
                     <CheckBox DockPanel.Dock="Right" Content="Untracked"  Margin="6" IsChecked="{Binding IncludeUntracked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label DockPanel.Dock="Left" FontWeight="SemiBold" Content="Workspace:"/>
                 </DockPanel>
-            
-
             </Expander.Header>
             <ListBox MinHeight="120" MaxHeight="200" x:Name="stpWorkspace" ItemsSource="{Binding WorkSpaceFiles}" HorizontalContentAlignment="Stretch" />
             </Expander>
-        </StackPanel>
+        <Label Name="lblRepoDir" Content="{Binding RepoDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+    </StackPanel>
 </UserControl>

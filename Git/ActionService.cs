@@ -1,5 +1,5 @@
 ﻿using CommitTemplateExtension.EnumAndConstants;
-using CommitTemplateExtension.File;
+using CommitTemplateExtension.Utils;
 using Community.VisualStudio.Toolkit;
 using System;
 using System.Collections.Generic;

@@ -1,11 +1,14 @@
 ﻿using CommitTemplateExtension.EnumAndConstants;
-using CommitTemplateExtension.File;
+using CommitTemplateExtension.Utils;
 using CommitTemplateExtension.Git;
 using CommitTemplateExtension.ViewModels;
 using CommitTemplateExtension.Views;
+using Microsoft.VisualStudio.Imaging;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using static CommitTemplateExtension.Git.GitService;
 using MessageBox = Community.VisualStudio.Toolkit.MessageBox;
 
@@ -30,11 +33,12 @@ namespace CommitTemplateExtension
             Loaded += CommitTemplateToolWindowControl_Loaded;
         }
 
-        private void CommitTemplateToolWindowControl_Loaded(object sender, RoutedEventArgs e)
+        private async void CommitTemplateToolWindowControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel = new ConventionalCommitVM();
+            imgIcon.Source = KnownMonikers.ContextMenu.ToBitMapSource(25,25);
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-            string baseDirectory = FileUtils.GetBaseDir();
+            string baseDirectory = await FileUtils.GetBaseDir();
             actionService = new ActionService(gitService);
             if (baseDirectory!=null)
             {
@@ -54,8 +58,10 @@ namespace CommitTemplateExtension
 
         private void RefreshFileChangesDisplay()
         {
-            ViewModel.WorkSpaceFiles = new ObservableCollection<FileChangeVM>(gitService.GetWorkspaceFiles(ViewModel.IncludeUntracked));
-            ViewModel.IndexFiles = new ObservableCollection<FileChangeVM>(gitService.GetIndexFiles());
+            var workSpaceFiles = gitService.GetWorkspaceFiles(ViewModel.IncludeUntracked);
+            var indexFiles = gitService.GetIndexFiles();
+            ViewModel.WorkSpaceFiles = new ObservableCollection<FileChangeVM>(workSpaceFiles);
+            ViewModel.IndexFiles = new ObservableCollection<FileChangeVM>(indexFiles);
         }
 
         private void btnCommit_Click(object sender, RoutedEventArgs e)
