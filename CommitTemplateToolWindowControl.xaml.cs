@@ -11,13 +11,14 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static CommitTemplateExtension.Git.GitService;
 using MessageBox = Community.VisualStudio.Toolkit.MessageBox;
+using CommitTemplateExtension.views.navigation;
 
 namespace CommitTemplateExtension
 {
     /// <summary>
     /// Interaction logic for CommitTemplateToolWindowControl.
     /// </summary>
-    public partial class CommitTemplateToolWindowControl : UserControl
+    public partial class CommitTemplateToolWindowControl : UserControl, INavigationParent
     {
         private GitService gitService;
         private ActionService actionService;
@@ -35,6 +36,12 @@ namespace CommitTemplateExtension
 
         private async void CommitTemplateToolWindowControl_Loaded(object sender, RoutedEventArgs e)
         {
+            var configControl = new ConfigurationControl(null);
+            configControl.Width = 280;
+            configControl.Height = 400;
+
+            pnlContainer.Children.Add(configControl);
+
             ViewModel = new ConventionalCommitVM();
             imgIcon.Source = KnownMonikers.ContextMenu.ToBitMapSource(25,25);
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -188,6 +195,10 @@ namespace CommitTemplateExtension
                     ViewModel.RepoDirectory = gitService.Directory;
                 BtnCloseNotification_Click(null, null);
             }
+        }
+
+        public void Back()
+        {
         }
     }
 }

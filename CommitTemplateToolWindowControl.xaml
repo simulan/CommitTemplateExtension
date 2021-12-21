@@ -5,15 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              xmlns:localVM="clr-namespace:CommitTemplateExtension.ViewModels" 
-    x:Class="CommitTemplateExtension.CommitTemplateToolWindowControl"
+             x:Class="CommitTemplateExtension.CommitTemplateToolWindowControl"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type localVM:ConventionalCommitVM}}"
              x:Name="MyToolWindow"
-             Padding="3"
-             >
+             Padding="3">  
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type localVM:FileChangeVM}">
             <DockPanel >
@@ -22,17 +21,17 @@
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
-
     <StackPanel>
-        
         <StackPanel Orientation="Vertical" >
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="10" HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Conventional Commit Template"/></TextBlock>
                 <Button>
                     <Image Name="imgIcon" Width="30"></Image>
                 </Button>
-            </StackPanel>   
+            </StackPanel>
+            <StackPanel Name="pnlContainer" Height="400" Width="280">
                 
+            </StackPanel>
             
             <!--Show errors-->
             <Border x:Name="brdError" BorderBrush="#999" Background="white" BorderThickness="1" Visibility="Collapsed">
@@ -61,7 +60,7 @@
                 </StackPanel>
             </Border>
 
-            <DockPanel  Height="80" >
+            <!--<DockPanel  Height="80" >
                 <Label FontWeight="SemiBold" Content="Message:"/>
                 <Border  BorderBrush="#999" Background="white" BorderThickness="1">
                     <ScrollViewer Height="80" >
@@ -104,9 +103,9 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,6">
                 <Button Content="Commit" IsDefault="True" Click="btnCommit_Click" Width="120"  x:Name="btnCommit"/>
                 <Button Content="Commit &amp; Push" Click="btnCommitPush_Click" Width="120"  x:Name="btnCommitPush"/>
-            </StackPanel>
+            </StackPanel>-->
         </StackPanel>
-        <Expander IsExpanded="True">
+        <!--<Expander IsExpanded="True">
             <Expander.Header>
                 <Label FontWeight="SemiBold" Content="Index:"/>
             </Expander.Header>
@@ -121,6 +120,6 @@
             </Expander.Header>
             <ListBox MinHeight="120" MaxHeight="200" x:Name="stpWorkspace" ItemsSource="{Binding WorkSpaceFiles}" HorizontalContentAlignment="Stretch" />
             </Expander>
-        <Label Name="lblRepoDir" Content="{Binding RepoDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+        <Label Name="lblRepoDir" Content="{Binding RepoDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>-->
     </StackPanel>
 </UserControl>

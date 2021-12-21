@@ -73,8 +73,9 @@
     <Compile Include="ViewModels\ErrorVM.cs" />
     <Compile Include="ViewModels\FileChangeVM.cs" />
     <Compile Include="ViewModels\InitializeVM.cs" />
-    <Compile Include="Views\AddAuthDetailsDialog.xaml.cs" />
-    <Compile Include="Views\AddRemoteDialog.xaml.cs" />
+    <Compile Include="views\AddAuthDetailsDialog.xaml.cs" />
+    <Compile Include="views\controls\ConfigurationControl.cs" />
+    <Compile Include="views\AddRemoteDialog.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -177,11 +178,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddAuthDetailsDialog.xaml">
+    <Page Include="views\AddAuthDetailsDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AddRemoteDialog.xaml">
+    <Page Include="views\controls\ConfigurationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\AddRemoteDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

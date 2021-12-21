@@ -1,0 +1,114 @@
+﻿<UserControl  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:localVM="clr-namespace:CommitTemplateExtension.ViewModels" 
+    x:Class="CommitTemplateExtension.Views.CommitControl"
+    toolkit:Themes.UseVsTheme="True"
+    Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
+    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type localVM:FileChangeVM}">
+            <DockPanel >
+                <Button DockPanel.Dock="Right"  Height="22" Width="25" Click="btnStageToggle_Click" Content="♦" />
+                <Label DockPanel.Dock="Left"  Content="{Binding Name}" FontSize="10"   Height="22" />
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel>
+            <!--Show errors-->
+            <Border x:Name="brdError" BorderBrush="#999" Background="white" BorderThickness="1" Visibility="Collapsed">
+                <StackPanel Background="LightYellow"   x:Name="pnlError">
+                    <DockPanel >
+                        <Button DockPanel.Dock="Right" Width="20" Background="Transparent" Click="BtnCloseError_Click" Content="X"/>
+                        <Label DockPanel.Dock="Left" Foreground="#966" FontSize="10" Height="12" Padding="6,0" FontWeight="Black" Content="↓ error"/>
+                    </DockPanel>
+                    <TextBlock  Foreground="#966" FontSize="14" FontWeight="Light" Height="60" TextWrapping="Wrap" Padding="3, 1" Text="{Binding Error, Mode=TwoWay}" />
+                </StackPanel>
+            </Border>
+
+            <!--Show notifications-->
+            <Border x:Name="brdNotification" BorderBrush="#999" Background="white" BorderThickness="1" Visibility="Collapsed">
+                <StackPanel Background="LightYellow"   x:Name="pnlNotification">
+                    <DockPanel >
+                        <Button DockPanel.Dock="Right" Width="20" Background="Transparent" Click="BtnCloseNotification_Click"  Content="X"/>
+                        <Label DockPanel.Dock="Left" Foreground="#6aa" FontSize="10" Height="12" Padding="6,0" FontWeight="Black" Content="↓ notification"/>
+                    </DockPanel>
+                    <TextBlock  Foreground="#6aa" FontSize="14" FontWeight="Light" Height="60" TextWrapping="Wrap" Padding="3, 1" Text="{Binding Notification, Mode=TwoWay}" />
+                    <TextBlock>
+                        <Hyperlink Click="LnkAction_Click"  >
+                            <Run Text="{Binding Path=NotificationAction}" />
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <DockPanel  Height="80" >
+                <Label FontWeight="SemiBold" Content="Message:"/>
+                <Border  BorderBrush="#999" Background="white" BorderThickness="1">
+                    <ScrollViewer Height="80" >
+                        <TextBlock Padding="3, 1"  Text="{Binding CommitMessage, Mode=TwoWay}" />
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+            <DockPanel Margin="0,4">
+                <Label FontWeight="Black" Width="61" Content="Type"/>
+                <ComboBox SelectedIndex="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="build"/>
+                    <ComboBoxItem Content="fix"/>
+                    <ComboBoxItem Content="chore"/>
+                    <ComboBoxItem Content="feat"/>
+                    <ComboBoxItem Content="ci"/>
+                    <ComboBoxItem Content="perf"/>
+                    <ComboBoxItem Content="test"/>
+                    <ComboBoxItem Content="refactor"/>
+                    <ComboBoxItem Content="revert"/>
+                    <ComboBoxItem Content="docs"/>
+                    <ComboBoxItem Content="style"/>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Margin="0,4" FontWeight="SemiBold" Width="61" Content="Scope:"/>
+                <TextBox Margin="0,4"  x:Name="txtScope" Text="{Binding Scope, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+            <Label FontWeight="Black" Content="Description:" />
+            <TextBox x:Name="txtDescription" Height="40" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <CheckBox Content="Breaking Changes" FontWeight="SemiBold"  Margin="6" IsChecked="{Binding BreakingChanges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+            <Label FontWeight="SemiBold" Content="Body:"/>
+            <TextBox x:Name="txtBody" Height="40" Text="{Binding Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="true" />
+
+            <Label FontWeight="SemiBold" Content="Footer:"/>
+            <TextBox x:Name="txtFooter" Height="40" Text="{Binding Footer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="true" />
+
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,6">
+                <Button Content="Commit" IsDefault="True" Click="btnCommit_Click" Width="120"  x:Name="btnCommit"/>
+                <Button Content="Commit &amp; Push" Click="btnCommitPush_Click" Width="120"  x:Name="btnCommitPush"/>
+            </StackPanel>
+        <Expander IsExpanded="True">
+            <Expander.Header>
+                <Label FontWeight="SemiBold" Content="Index:"/>
+            </Expander.Header>
+            <ListBox MinHeight="120" MaxHeight="200" x:Name="stpIndex" ItemsSource="{Binding IndexFiles}"  HorizontalContentAlignment="Stretch"/>
+        </Expander>
+            <Expander IsExpanded="True">
+            <Expander.Header>
+                <DockPanel>
+                    <CheckBox DockPanel.Dock="Right" Content="Untracked"  Margin="6" IsChecked="{Binding IncludeUntracked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label DockPanel.Dock="Left" FontWeight="SemiBold" Content="Workspace:"/>
+                </DockPanel>
+            </Expander.Header>
+            <ListBox MinHeight="120" MaxHeight="200" x:Name="stpWorkspace" ItemsSource="{Binding WorkSpaceFiles}" HorizontalContentAlignment="Stretch" />
+            </Expander>
+        <Label Name="lblRepoDir" Content="{Binding RepoDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+    </StackPanel>
+</UserControl>
