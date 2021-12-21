@@ -8,11 +8,10 @@
     xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
     xmlns:localVM="clr-namespace:CommitTemplateExtension.ViewModels" 
     x:Class="CommitTemplateExtension.Views.CommitControl"
-    toolkit:Themes.UseVsTheme="True"
     Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
     Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
     mc:Ignorable="d"
-    d:DesignHeight="400"
+    d:DesignHeight="740"
     d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type localVM:FileChangeVM}">

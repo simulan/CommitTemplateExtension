@@ -74,8 +74,13 @@
     <Compile Include="ViewModels\FileChangeVM.cs" />
     <Compile Include="ViewModels\InitializeVM.cs" />
     <Compile Include="views\AddAuthDetailsDialog.xaml.cs" />
-    <Compile Include="views\controls\ConfigurationControl.cs" />
+    <Compile Include="views\controls\CommitControl.cs" />
+    <Compile Include="views\controls\NotificationControl.cs" />
+    <Compile Include="views\controls\ErrorControl.cs" />
+    <Compile Include="views\controls\AddRemoteControl.cs" />
     <Compile Include="views\AddRemoteDialog.xaml.cs" />
+    <Compile Include="views\navigation\INavigationParent.cs" />
+    <Compile Include="views\navigation\NavigationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -182,7 +187,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="views\controls\ConfigurationControl.xaml">
+    <Page Include="views\controls\CommitControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\controls\NotificationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\controls\ErrorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\controls\AddRemoteControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
